@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz - Gestion des Conflits</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f0f4f8;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .quiz-container {
+        max-width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+      }
+      .question {
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .answers {
+        list-style-type: none;
+        padding: 0;
+      }
+      .answers li {
+        margin-bottom: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .answers li:hover {
+        background-color: #f0f8ff;
+      }
+      .selected {
+        background-color: #e0f7fa; /* Highlighted background */
+        border: 1px solid #007bff; /* Border around the selected option */
+      }
+      .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        margin-top: 20px;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      .result {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .feedback {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h2>Quiz - Comprendre les Origines des Conflits</h2>
+
+      <div id="question-container">
+        <!-- Les questions seront injectées ici dynamiquement -->
+      </div>
+
+      <button class="btn" id="submitBtn" onclick="submitQuiz()">
+        Soumettre les réponses
+      </button>
+
+      <div id="quiz-result" class="result" style="display: none"></div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question:
+            "Quel est le principal facteur pouvant conduire à un conflit avec un client à distance ?",
+          answers: [
+            { text: "🚨 Problèmes techniques", correct: true },
+            { text: "📦 Attentes non satisfaites", correct: false },
+            { text: "📢 Manque de communication", correct: false },
+            { text: "😡 État émotionnel du client", correct: false },
+          ],
+        },
+        {
+          question:
+            "Quel comportement est essentiel pour gérer un conflit efficacement ?",
+          answers: [
+            { text: "🤫 Silence actif", correct: false },
+            { text: "✅ Reformuler", correct: true },
+            { text: "📝 Ignorer l'émotion", correct: false },
+            { text: "💬 Parler rapidement", correct: false },
+          ],
+        },
+        {
+          question:
+            "Comment peut-on prévenir un conflit avant qu'il ne se produise ?",
+          answers: [
+            { text: "📊 Anticiper les attentes", correct: true },
+            { text: "💡 Écouter uniquement", correct: false },
+            { text: "📜 Ignorer les plaintes", correct: false },
+            { text: "🎓 Ne rien changer", correct: false },
+          ],
+        },
+        {
+          question:
+            "Pourquoi est-il important de montrer de l'empathie lors d'un conflit avec un client ?",
+          answers: [
+            {
+              text: "💡 Pour réduire la tension et comprendre le problème",
+              correct: true,
+            },
+            { text: "👀 Parce que ça montre de la faiblesse", correct: false },
+            { text: "😡 Pour se faire respecter", correct: false },
+            { text: "🕵️‍♀️ Pour enquêter davantage", correct: false },
+          ],
+        },
+        {
+          question: "Quel type de question permet de clarifier un malentendu ?",
+          answers: [
+            { text: "🔑 Question fermée", correct: false },
+            { text: "❓ Question ouverte", correct: true },
+            { text: "❗ Question suggestive", correct: false },
+            { text: "💭 Question rhétorique", correct: false },
+          ],
+        },
+        {
+          question: "Qu'est-ce qui peut aider à apaiser un client en colère ?",
+          answers: [
+            { text: "🙋‍♂️ Rester calme et écouter attentivement", correct: true },
+            { text: "🗣️ Parler de manière autoritaire", correct: false },
+            { text: "🤔 Ignorer ses plaintes", correct: false },
+            { text: "👎 Répondre avec de l'ironie", correct: false },
+          ],
+        },
+        {
+          question:
+            "Comment peut-on éviter que le client perçoive le service comme étant impersonnel ?",
+          answers: [
+            {
+              text: "💬 Utiliser des messages standards à chaque fois",
+              correct: false,
+            },
+            {
+              text: "👥 Personnaliser les interactions et montrer de l'empathie",
+              correct: true,
+            },
+            { text: "🔒 Rester strict sur les règles", correct: false },
+            { text: "📞 Ignorer les besoins spécifiques", correct: false },
+          ],
+        },
+        {
+          question: "Que signifie l'écoute active ?",
+          answers: [
+            { text: "📝 Réciter des informations", correct: false },
+            {
+              text: "🤔 Reformuler ce que le client dit pour montrer que l'on comprend",
+              correct: true,
+            },
+            { text: "⏱️ Répondre immédiatement", correct: false },
+            {
+              text: "🔇 Rester silencieux et attendre la réponse",
+              correct: false,
+            },
+          ],
+        },
+        {
+          question:
+            "Lors d'un conflit, pourquoi est-il important de reformuler ce que dit le client ?",
+          answers: [
+            {
+              text: "💡 Pour s'assurer d'avoir bien compris et éviter les malentendus",
+              correct: true,
+            },
+            { text: "📦 Pour faire une pause", correct: false },
+            { text: "🗣️ Pour l'interrompre", correct: false },
+            { text: "⚠️ Pour donner une réponse plus rapide", correct: false },
+          ],
+        },
+        {
+          question: "Comment peut-on anticiper les conflits avec un client ?",
+          answers: [
+            {
+              text: "💬 En fournissant des informations claires dès le début",
+              correct: true,
+            },
+            { text: "⏳ En étant distant et rapide", correct: false },
+            {
+              text: "🙈 En ne communiquant que lorsqu'on est obligé",
+              correct: false,
+            },
+            { text: "🔒 En imposant des solutions", correct: false },
+          ],
+        },
+      ]
+
+      let currentQuestionIndex = 0
+      let userAnswers = []
+      let score = 0
+      let selectedAnswers = []
+
+      // Shuffle function to randomize the questions
+      function shuffleQuestions() {
+        let shuffledQuestions = [...questions] // Copy the questions array
+        for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[shuffledQuestions[i], shuffledQuestions[j]] = [
+            shuffledQuestions[j],
+            shuffledQuestions[i],
+          ] // Swap positions
+        }
+        return shuffledQuestions.slice(0, 5) // Return the first 5 questions
+      }
+
+      function displayQuestion() {
+        const questionContainer = document.getElementById("question-container")
+        const questionData = shuffledQuestions[currentQuestionIndex]
+
+        questionContainer.innerHTML = `
+            <div class="question">
+                <p>${questionData.question}</p>
+                <ul class="answers">
+                    ${questionData.answers
+                      .map(
+                        (answer, index) => `
+                        <li class="answer-item" onclick="selectAnswer(${index})">
+                            ${answer.text}
+                        </li>
+                    `,
+                      )
+                      .join("")}
+                </ul>
+            </div>
+            <div id="feedback" class="feedback"></div>
+        `
+      }
+
+      function selectAnswer(index) {
+        const answerItems = document.querySelectorAll(".answer-item")
+        answerItems.forEach((item) => item.classList.remove("selected")) // Remove previously selected
+        // Add the 'selected' class to the clicked answer
+        answerItems[index].classList.add("selected")
+
+        const correctAnswer =
+          shuffledQuestions[currentQuestionIndex].answers[index].correct
+        const feedback = document.getElementById("feedback")
+
+        if (correctAnswer) {
+          feedback.textContent = "✅ Bonne réponse!"
+          feedback.style.color = "green"
+        } else {
+          feedback.textContent = "❌ Mauvaise réponse."
+          feedback.style.color = "red"
+        }
+
+        selectedAnswers[currentQuestionIndex] = correctAnswer // Store the selected answer
+      }
+
+      function submitQuiz() {
+        // If it's the last question, show the result
+        if (currentQuestionIndex === shuffledQuestions.length - 1) {
+          score = selectedAnswers.filter((answer) => answer).length
+          const resultDiv = document.getElementById("quiz-result")
+          resultDiv.style.display = "block"
+
+          if (score === shuffledQuestions.length) {
+            resultDiv.textContent = `Bravo ! Vous avez obtenu ${score} / ${shuffledQuestions.length} bonnes réponses.`
+            resultDiv.style.color = "green"
+          } else if (score >= shuffledQuestions.length / 2) {
+            resultDiv.textContent = `Bien joué ! Vous avez obtenu ${score} / ${shuffledQuestions.length} bonnes réponses.`
+            resultDiv.style.color = "orange"
+          } else {
+            resultDiv.textContent = `Il y a des points à améliorer. Vous avez obtenu ${score} / ${shuffledQuestions.length} bonnes réponses.`
+            resultDiv.style.color = "red"
+          }
+
+          // Change button to "Rejouer"
+          const submitBtn = document.getElementById("submitBtn")
+          submitBtn.textContent = "Rejouer"
+          submitBtn.setAttribute("onclick", "restartQuiz()")
+        } else {
+          currentQuestionIndex++
+          displayQuestion()
+        }
+      }
+
+      function restartQuiz() {
+        // Reset everything
+        currentQuestionIndex = 0
+        selectedAnswers = []
+        score = 0
+        document.getElementById("quiz-result").style.display = "none"
+        document.getElementById("submitBtn").textContent =
+          "Soumettre les réponses"
+        document
+          .getElementById("submitBtn")
+          .setAttribute("onclick", "submitQuiz()")
+        shuffledQuestions = shuffleQuestions() // Shuffle the questions again
+        displayQuestion()
+      }
+
+      // Start the quiz
+      let shuffledQuestions = shuffleQuestions() // Get shuffled questions
+      displayQuestion()
+    </script>
+  </body>
+</html>
