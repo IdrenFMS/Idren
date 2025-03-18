@@ -1,93 +1,70 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
     background: linear-gradient(to right, #007BFF, #00c6ff);
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    color: #333;
 }
 
 .container {
+    max-width: 800px;
     background: white;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 600px;
 }
 
-h1 {
+h1, h2 {
     color: #007BFF;
 }
 
-#question-text {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    background: #f1f1f1;
+#answers-container button {
+    display: block;
+    width: 100%;
     padding: 10px;
     margin: 5px 0;
+    border: none;
     border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
 
-li:hover {
+#answers-container button:hover {
     background: #ddd;
 }
 
-.selected {
-    background: #007BFF !important;
+#answers-container button.selected {
+    background: #007BFF;
     color: white;
-    font-weight: bold;
 }
 
-#next-btn, #restart-btn {
+#answers-container button.correct {
+    background: #28a745;
+    color: white;
+}
+
+#answers-container button.wrong {
+    background: #dc3545;
+    color: white;
+}
+
+#next-btn, #retry-btn {
+    display: none;
     background: #007BFF;
     color: white;
     padding: 10px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 15px;
-}
-
-#next-btn:hover, #restart-btn:hover {
-    background: #0056b3;
-}
-
-#result-message {
-    font-weight: bold;
+    font-size: 16px;
     margin-top: 10px;
 }
 
-.hidden {
-    display: none;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background: #007BFF;
-    color: white;
+#next-btn:hover, #retry-btn:hover {
+    background: #0056b3;
 }
