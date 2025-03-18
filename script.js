@@ -2,6 +2,7 @@ const allQuestions = [
     { question: "Quelle est la clé d'une bonne relation client ?", answers: ["Empathie", "Rapidité", "Silence"], correct: "Empathie" },
     { question: "Quel canal est le plus utilisé ?", answers: ["Téléphone", "Email", "Chat"], correct: "Téléphone" },
     { question: "Comment gérer un client en colère ?", answers: ["L'ignorer", "Écouter", "Couper"], correct: "Écouter" },
+    { question: "CRCD ?", answers: ["Conseil Relation Distance", "Conseiller Relation Clientèle à Distance", "Caribou Rapide Cours à Distance",], correct: "Conseiller Relation Clientèle à Distance" },
     { question: "Pourquoi reformuler une demande ?", answers: ["Gagner du temps", "Montrer qu'on a compris", "Éviter de répondre"], correct: "Montrer qu'on a compris" },
     { question: "Que signifie la notion de ‘fidélisation’ ?", answers: ["Faire revenir un client", "Vendre plus cher", "Ignorer les plaintes"], correct: "Faire revenir un client" },
     { question: "Quel est l’impact d’une mauvaise relation client ?", answers: ["Perte de clients", "Augmentation des ventes", "Moins d’appels"], correct: "Perte de clients" },
